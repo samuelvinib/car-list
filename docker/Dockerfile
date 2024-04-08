@@ -1,6 +1,7 @@
+# Use a imagem base do PHP-FPM
 FROM php:8.3.2-fpm
 
-# Instalando dependências
+# Instale as dependências necessárias
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
@@ -28,7 +29,7 @@ RUN apt-get update \
 # Limpeza do cache do apt
 RUN rm -rf /var/lib/apt/lists/*
 
-# Instalando extensões PHP
+# Instale as extensões PHP necessárias
 RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install bcmath \
@@ -36,26 +37,14 @@ RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-install ctype \
     && docker-php-ext-install zip \
     && docker-php-ext-install mbstring \
-    && docker-php-ext-install xml
-
-# Instalando a biblioteca GD do PHP
-RUN docker-php-ext-configure gd \
-            --prefix=/usr \
-            --with-jpeg \
-            --with-freetype \
+    && docker-php-ext-install xml \
     && docker-php-ext-install gd \
     && php -r 'var_dump(gd_info());'
 
-# Instalando Composer
+# Instale o Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && composer self-update 2.6.6
 
-# Diretório de trabalho e cópia do código-fonte
-RUN mkdir /opt/car-list
-WORKDIR /opt/car-list
-COPY . .
-
-# Expondo a porta 80 (se necessário)
-EXPOSE 80
+CMD ["php-fpm"]
