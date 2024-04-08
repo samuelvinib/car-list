@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  car-list:
+    container_name: car-list
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+        - .env.example
+    ports:
+     - "8000:80"
+    tty: true
+    volumes:
+     - ./:/opt/car-list
+    #  - /opt/car-list/vendor
+    #  - /opt/car-list/node_modules
+    networks:
+     - car_list
+    command: "/bin/sh /opt/car-list/scripts/entrypoint.sh"
+  db:
+      image: mysql:latest
+      container_name: mysql-container
+      environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=laravel
+          - MYSQL_USER=user
+          - MYSQL_PASSWORD=my-secret-pw
+          - MYSQL_PORT=3306
+      ports:
+          - "3306:3306"
+      networks:
+          - car_list
+networks:
+  car_list:
+    name: car_list
