@@ -20,7 +20,6 @@ services:
       - ./:/var/www/html
       - /var/www/html/vendor
       - /var/www/html/node_module
-    # command: "/bin/sh /var/www/html/scripts/entrypoint.sh"
     depends_on:
       - db
   db:
