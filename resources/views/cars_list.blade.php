@@ -13,7 +13,7 @@
                 <th>Nome</th>
                 <th>Código FIPE</th>
                 <th>Preço</th>
-                <th>editar</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
