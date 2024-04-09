@@ -1,5 +1,7 @@
 @echo off
 
+ren .env.example .env
+
 REM Constrói as imagens Docker
 docker-compose build
 
