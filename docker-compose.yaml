@@ -18,6 +18,8 @@ services:
     restart: always
     volumes:
       - ./:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_module
     depends_on:
       - db
   db:
