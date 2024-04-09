@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Renomeia o arquivo .env.example para .env
-mv .env.example .env
+cp .env.example .env
 
 # Constrói as imagens Docker
 docker-compose build
