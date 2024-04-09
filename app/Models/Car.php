@@ -10,8 +10,8 @@ class Car extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nome',
-        'codigo_fipe',
-        'preco',
+        'name',
+        'fipe_code',
+        'price',
     ];
 }
